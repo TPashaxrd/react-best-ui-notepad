@@ -1,13 +1,15 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Start from './components/Start.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <HashRouter>
+  <BrowserRouter>
     <Routes>
       <Route path='/' element={<App/>}/>
-      <Route path="*" element={<App/>}/>
+      <Route path='/start' element={<Start/>}/>
+      {/* <Route path="*" element={<App/>}/> */}
     </Routes>
-  </HashRouter>
+  </BrowserRouter>
 )

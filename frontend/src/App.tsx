@@ -5,7 +5,7 @@ import type { FontKey } from "./components/fonts";
 import { FONTS } from "./components/fonts";
 import { useLoading } from "./hooks/useLoading";
 import { useSaveShortcut } from "./hooks/useSaveShortcut";
-
+import { useLocalUsername } from "./hooks/useLocalUsername";
 
 export default function App() {
   const [theme, setTheme] = useState<"light" | "dark">("dark")
@@ -18,6 +18,7 @@ export default function App() {
   const [font, setFont] = useState<FontKey>("font-space-grotesk")
   const [showFontMenu, setShowFontMenu] = useState(false)
   const loading = useLoading(2000);
+  const { username } = useLocalUsername();
 
   useEffect(() => {
     const storedFont = localStorage.getItem("font") as FontKey
@@ -25,7 +26,7 @@ export default function App() {
       setFont(storedFont)
     }
   }, [])
-
+  
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme")
     if (storedTheme === "dark" || storedTheme === "light") {
@@ -105,7 +106,7 @@ export default function App() {
 
       <div className="flex-1 flex items-center -mt-44 justify-center p-8">
         <textarea
-          placeholder="Start writing your story..."
+          placeholder={`${username}, Start writing your story...`}
           value={input}
           autoFocus
           onChange={(e) => setInput(e.target.value)}
