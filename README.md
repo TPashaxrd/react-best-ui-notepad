@@ -2,6 +2,8 @@
 
 ![BannerImage](image.png)
 
+![Preview](image-1.png)
+
 Electron ve React tabanlı, modern bir notepad uygulaması.  
 Tailwind CSS ile tasarlandı, hızlı ve kullanışlıdır.
 
