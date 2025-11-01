@@ -1,4 +1,3 @@
-// hooks/useSaveShortcut.ts
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { BiSave } from "react-icons/bi";

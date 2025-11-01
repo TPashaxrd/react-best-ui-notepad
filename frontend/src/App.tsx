@@ -269,7 +269,7 @@ export default function App() {
               setStories([])
               localStorage.removeItem("stories")
               setActiveStoryIndex(null)
-              toast('All stories cleared!', { icon: <BiTrash /> })
+              toast('All stories cleared!', { style: { background: "#654321", color: "white" }, icon: <BiTrash /> })
             }}
             className="w-full flex text-center items-center justify-center gap-2 py-2 text-gray-500 bg-[#2a2a2a] text-white duration-300 rounded hover:bg-[#1a1a1a] transition"
           >
