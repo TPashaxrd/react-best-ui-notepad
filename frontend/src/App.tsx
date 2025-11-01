@@ -111,7 +111,7 @@ export default function App() {
           autoFocus
           onChange={(e) => setInput(e.target.value)}
           className={`
-            w-full max-w-4xl h-full min-h-96 p-22 text-lg leading-relaxed
+            w-full max-w-4xl min-h-[700px] h-full min-h-96 p-22 text-lg leading-relaxed
             bg-transparent resize-none outline-none
             placeholder-gray-500 dark:placeholder-gray-600
             tracking-wide ${font}
@@ -188,7 +188,7 @@ export default function App() {
           bg-[#121212] backdrop-blur-2xl
           border-l border-[#3a3a3a] p-6 overflow-y-auto
           transform transition-transform duration-300 ease-out z-50
-          ${showHistory ? "translate-x-0" : "translate-x-full"} ${font}
+          ${showHistory ? "translate-x-0" : "translate-x-full"}
         `}
       >
         <div className="flex justify-between items-center mb-6">
@@ -254,7 +254,7 @@ export default function App() {
         )}
          {stories.length > 0 && (
         <div className="bg-[#1a1a1a] px-3 py-3 flex-none mt-4">
-          <span className="block w-full h-0.5 bg-black my-2"></span>
+          <span className="block w-full h-0.5 bg-[#B07C49]/40 my-2"></span>
           <button
             onClick={() => {
               setStories([])
