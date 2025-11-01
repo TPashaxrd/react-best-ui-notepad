@@ -103,7 +103,16 @@ export default function App() {
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 text-sm text-gray-500 dark:text-gray-400 font-medium">
         {wordCount} word{wordCount !== 1 ? "s" : ""}
       </div>
-
+      <div onClick={() => {
+          const newStory = ""
+          setInput(newStory)
+          setActiveStoryIndex(null)
+          setShowHistory(false)
+          const updated = [...stories, newStory]
+          setStories(updated)
+          localStorage.setItem("stories", JSON.stringify(updated))
+        }}
+        className="absolute top-6 left-6 text-[#B07C49] hover:text-[#D4A16A] font-semibold cursor-pointer transition">+ Create new</div>
       <div className="flex-1 flex items-center -mt-44 justify-center p-8">
         <textarea
           placeholder={`${username}, Start writing your story...`}
