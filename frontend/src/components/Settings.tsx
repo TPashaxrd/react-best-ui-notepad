@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { CiSettings } from "react-icons/ci";
+import ClearAllButton from "./ClearAll";
 
 export default function Settings({ onClose }: { onClose?: () => void }) {
   const [username, setUsername] = useState<string>("");
@@ -75,7 +76,11 @@ export default function Settings({ onClose }: { onClose?: () => void }) {
           />
         </div>
       </div>
-
+      <ClearAllButton onConfirm={() => {
+        localStorage.clear()
+        console.log("All LocalStorage's has been deleted.")
+        setTimeout(() => window.location.reload(), 2000)
+      }} />
       <div className="mt-5 flex gap-2">
         <button
           onClick={handleSave}
