@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import toast, { Toaster } from "react-hot-toast"
-import { BiMoon, BiSun, BiCheck, BiX, BiHistory, BiFont, BiDice5, BiTimer, BiTrash, BiEdit, BiChevronDown, BiTrashAlt } from "react-icons/bi"
+import { BiMoon, BiSun, BiCheck, BiX, BiHistory, BiFont, BiTimer, BiTrash, BiEdit, BiChevronDown, BiTrashAlt } from "react-icons/bi"
 import type { FontKey } from "./components/fonts";
 import { FONTS } from "./components/fonts";
 import { useLoading } from "./hooks/useLoading";
 import { useSaveShortcut } from "./hooks/useSaveShortcut";
 import { useLocalUsername } from "./hooks/useLocalUsername";
+import { CiSettings } from "react-icons/ci";
+import Settings from "./components/Settings";
 
 export default function App() {
   const [theme, setTheme] = useState<"light" | "dark">("dark")
@@ -18,6 +20,7 @@ export default function App() {
   const [font, setFont] = useState<FontKey>("font-space-grotesk")
   const [showFontMenu, setShowFontMenu] = useState(false)
   const loading = useLoading(2000);
+  const [showSettings, setShowSettings] = useState(false)
   const { username } = useLocalUsername();
 
   useEffect(() => {
@@ -37,6 +40,35 @@ export default function App() {
     const stored = localStorage.getItem("stories")
     if (stored) setStories(JSON.parse(stored))
   }, [])
+
+  useEffect(() => {
+    const autoSaveEnabled = localStorage.getItem("autoSave") === "true";
+    if (!autoSaveEnabled) return; 
+
+    if (input.trim() === "") return;
+
+    const delay = setTimeout(() => {
+      let updated = [...stories];
+
+      if (activeStoryIndex !== null) {
+        updated[activeStoryIndex] = input.trim();
+      } else {
+        updated.push(input.trim());
+        setActiveStoryIndex(updated.length - 1);
+      }
+
+      setStories(updated);
+      localStorage.setItem("stories", JSON.stringify(updated));
+
+      // toast("Auto-saved!", {
+      //   icon: <BiSave />,
+      //   style: { background: "#654321", color: "white" },
+      // });
+    }, 800);
+
+    return () => clearTimeout(delay);
+  }, [input, activeStoryIndex, stories]);
+
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light"
@@ -103,6 +135,12 @@ export default function App() {
       <div className="absolute top-6 left-1/2 transform -translate-x-1/2 text-sm text-gray-500 dark:text-gray-400 font-medium">
         {wordCount} word{wordCount !== 1 ? "s" : ""}
       </div>
+      {showSettings && (
+        <div className="fixed bottom-20 right-10 z-[9999]">
+          <Settings />
+        </div>
+
+        )}
       <div onClick={() => {
           const newStory = ""
           setInput(newStory)
@@ -163,8 +201,11 @@ export default function App() {
           </div>
 
           <span className="text-gray-600">•</span>
-          <button className="text-sm text-gray-400 hover:text-[#B07C49] transition flex items-center gap-1">
-            <BiDice5 size={14} /> Random
+          <button
+            onClick={() => setShowSettings(!showSettings)}
+            className="text-sm text-gray-400 hover:text-[#B07C49] transition flex items-center gap-1"
+          >
+            <CiSettings size={14} /> Settings
           </button>
           <span className="text-gray-600">•</span>
           <button className="text-sm text-gray-400 hover:text-[#B07C49] transition flex items-center gap-1">

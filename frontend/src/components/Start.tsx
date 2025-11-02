@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Start() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showInput, setShowInput] = useState(false);
   const [username, setUsername] = useState("");
   const [typedText, setTypedText] = useState("");
+  const navigate = useNavigate()
 
   useEffect(() => {
     const video = videoRef.current;
@@ -37,14 +39,15 @@ export default function Start() {
     if (!username.trim()) return alert("Lütfen kullanıcı adını gir ✍️");
     localStorage.setItem("username", username.trim());
     localStorage.setItem("isOkey", "true");
-    window.location.href = "/";
+    navigate("/")
   };
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-black">
+      {/* https://raw.githubusercontent.com/TPashaxrd/react-best-ui-notepad/main/frontend/public/Notepad.mp4 */}
       <video
         ref={videoRef}
-        src="/Notepad.mp4"
+        src="https://raw.githubusercontent.com/TPashaxrd/react-best-ui-notepad/main/frontend/public/Notepad.mp4"
         autoPlay
         playsInline
         muted
