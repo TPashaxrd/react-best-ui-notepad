@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best UI Notepad - Modern Note-Taking App by Cordision</title>
+    <meta name="description" content="Download Best UI Notepad - A beautiful, fast, and open-source notepad application with modern design and intuitive interface for seamless note-taking.">
+    <meta name="author" content="Cordision">
+    <meta name="keywords" content="notepad, note-taking app, text editor, Best UI Notepad, Cordision, open source notepad">
+    
+    <meta property="og:title" content="Best UI Notepad - Modern Note-Taking App">
+    <meta property="og:description" content="A beautiful, fast, and open-source notepad application built with React for seamless note-taking">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://repository-images.githubusercontent.com/1087824812/ff82d0ed-4922-45d0-947d-57d38c8156d2">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Best UI Notepad - Modern Note-Taking App">
+    <meta name="twitter:description" content="Download the beautiful and fast open-source notepad application">
+    <meta name="twitter:image" content="https://repository-images.githubusercontent.com/1087824812/ff82d0ed-4922-45d0-947d-57d38c8156d2">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --accent: #06b6d4;
+            --background: #fafafa;
+            --foreground: #0f172a;
+            --muted: #f1f5f9;
+            --muted-foreground: #64748b;
+            --border: #e2e8f0;
+            --card: #ffffff;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(to bottom, var(--background), var(--muted));
+            color: var(--foreground);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+                header {
+            padding: 1.5rem 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--foreground);
+            text-decoration: none;
+        }
+        
+        .logo svg {
+            width: 32px;
+            height: 32px;
+            color: var(--primary);
+        }
+        
+        nav a {
+            color: var(--muted-foreground);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--foreground);
+        }
+                .hero {
+            text-align: center;
+            padding: 5rem 0;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--muted-foreground);
+            max-width: 42rem;
+            margin: 0 auto 2rem;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-outline {
+            background: var(--card);
+            color: var(--foreground);
+            border: 2px solid var(--border);
+        }
+        
+        .btn-outline:hover {
+            background: var(--muted);
+            border-color: var(--primary);
+        }
+        
+        .app-preview {
+            max-width: 64rem;
+            margin: 0 auto;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .app-preview-inner {
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border);
+            background: var(--card);
+        }
+        
+        .app-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .features {
+            padding: 5rem 0;
+        }
+        
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-icon.primary {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+        
+        .feature-icon.accent {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--accent);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-card p {
+            color: var(--muted-foreground);
+        }
+        
+        .cta {
+            padding: 5rem 0;
+        }
+        
+        .cta-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1));
+            border-radius: 1.5rem;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .cta-box h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-box p {
+            color: var(--muted-foreground);
+            max-width: 42rem;
+            margin: 0 auto 2rem;
+            font-size: 1.125rem;
+        }
+        
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem 0;
+            margin-top: 5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .footer-content a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+        
+        .icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.125rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .cta-box {
+                padding: 3rem 1.5rem;
+            }
+            
+            .cta-box h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <line x1="10" y1="9" x2="8" y2="9"/>
+                    </svg>
+                    <span>Best UI Notepad</span>
+                </div>
+                <a href="https://github.com/TPashaxrd/react-best-ui-notepad" target="_blank" rel="noopener noreferrer">
+                    GitHub
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Best UI Notepad</h1>
+                <p class="hero-subtitle">
+                    A beautiful, modern notepad application with an intuitive interface designed for seamless note-taking and productivity.
+                </p>
+                
+                <div class="button-group">
+                    <a href="https://github.com/TPashaxrd/react-best-ui-notepad/releases/download/notepad/ToprakApp.Setup.1.0.0.exe" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Download Now
+                    </a>
+                    <a href="https://github.com/TPashaxrd/react-best-ui-notepad" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                        View on GitHub
+                    </a>
+                </div>
+                
+                <div class="app-preview">
+                    <div class="app-preview-inner">
+                        <img src="https://repository-images.githubusercontent.com/1087824812/ff82d0ed-4922-45d0-947d-57d38c8156d2" 
+                             alt="Best UI Notepad application interface showcasing modern design and features">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2v6m0 0 4-4m-4 4L8 4"/>
+                                <path d="M8 16h.01"/>
+                                <path d="M12 16h.01"/>
+                                <path d="M16 16h.01"/>
+                                <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                            </svg>
+                        </div>
+                        <h3>Beautiful Design</h3>
+                        <p>Modern and intuitive interface that makes note-taking a pleasure. Clean design that stays out of your way.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon accent">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                            </svg>
+                        </div>
+                        <h3>Fast & Efficient</h3>
+                        <p>Lightning-fast performance built with React. Start writing instantly without any lag or delays.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                            </svg>
+                        </div>
+                        <h3>Open Source</h3>
+                        <p>Fully open-source and transparent. Inspect the code, contribute features, or customize it to your needs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <div class="cta-box">
+                    <h2>Ready to Get Started?</h2>
+                    <p>Download Best UI Notepad today and experience a better way to take notes. Free and open source forever.</p>
+                    <a href="https://github.com/TPashaxrd/react-best-ui-notepad/releases/download/notepad/ToprakApp.Setup.1.0.0.exe" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                        Download for Free
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <span>Best UI Notepad</span>
+                </div>
+                <p style="color: var(--muted-foreground); font-size: 0.875rem;">
+                    Made with ❤️ by <a href="https://github.com/TPashaxrd" target="_blank" rel="noopener noreferrer">Cordision</a>
+                </p>
+                <a href="https://github.com/TPashaxrd/react-best-ui-notepad" target="_blank" rel="noopener noreferrer" style="color: var(--muted-foreground); font-size: 0.875rem;">
+                    View Source on GitHub
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.8s ease-out';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('click', function() {
+                console.log('Download button clicked');
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+            }
+        });
+    </script>
+</body>
+</html>
